@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./app.css";
+import Header from "./Header";
+import GameController from "./GameController";
+import Card from "./Card";
 
 function App() {
+
+  const [scoreboard, setScoreboard] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
+
+  const incrementScore = () => {
+    setScoreboard(scoreboard + 1)
+  }
+
+  const resetScore = () => {
+    setScoreboard(0);
+  }
+
+  const checkBestScore = () => {
+    if(scoreboard > bestScore) {
+      setBestScore(scoreboard)
+    }
+
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header bestScore={bestScore} scoreboard={scoreboard} />
+      <GameController />
+      <Card scoreboard={scoreboard} incrementScore={incrementScore} resetScore={resetScore} checkBestScore={checkBestScore}/>
     </div>
   );
 }
